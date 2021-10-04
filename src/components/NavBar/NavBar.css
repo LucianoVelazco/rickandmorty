@@ -20,10 +20,18 @@
   color: black;
 }
 
-.navbar-container-form{
+.navbar-container__form{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 
 }
 
+.navbar-container__form--categories{
+  margin-right: 5px;
+}
+
+.navbar-container__form--autocomplete{
+  margin-left: 5px;
+}

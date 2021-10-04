@@ -4,23 +4,27 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './CardEpisodes.css'
 
-export default function CardLocation() {
-  const [ episode, setEpisode] = useState([]);
-  const [ emision, setEmision ] =  useState([]);
-  const [ code, setCode] = useState([]);
+export default function CardEpisodes(
+  {
+    name,
+    air_date,
+    espisode
+  }) 
+  {
+ 
   return (
     <div>
-      <div class='card'>
+      <div className='card'>
       <Card sx={{ maxWidth: 345 }}>
           <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Nombre
+            {name}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Fecha de Emision
+            {air_date}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Codigo de Episodio
+            {espisode}
           </Typography>
         </CardContent>
       </Card>

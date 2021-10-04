@@ -4,31 +4,33 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './CardLocation.css'
 
-export default function CardLocation() {
-  const [ location, setLocation] = useState([]);
-  const [ type, setType ] =  useState([]);
-  const [ dimension, setDimension] = useState([]);
-  const [ population, setPopulation] = useState([]);
-  const [ creationDate, setCreationDate] = useState([]);
+export default function CardLocation(
+  {
+    name,
+    type, 
+    dimension,
+    residents,
+    created,
+}) {
   return (
     <div>
-      <div class='card'>
+      <div className='card'>
       <Card sx={{ maxWidth: 345 }}>
           <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            LocationName
+            {name}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Type
+            {type}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Dimension
+            {dimension}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Population
+            {residents && residents.length}
           </Typography>
           <Typography gutterBottom variant="body1" component="div">
-            Creation Date
+            {created}
           </Typography>
         </CardContent>
       </Card>

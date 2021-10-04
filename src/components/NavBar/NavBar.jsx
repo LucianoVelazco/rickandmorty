@@ -5,14 +5,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../redux/actions';
 import '../NavBar/NavBar.css'
 
 const NavBar = () => {
   const [categories, setCategories] = useState('character');
-  const [fetchResponse, setFetchResponse] = useState([]);
+  const [ fetchResponse, setFetchResponse ] =  useState([]);
+  const dispatch = useDispatch() 
   const API = `https://rickandmortyapi.com/api/${categories}`
   useEffect(() => {
     fetch(API)
@@ -21,23 +22,24 @@ const NavBar = () => {
       .then((data)=>{
         console.log(data)
         setFetchResponse(data.results)
+        dispatch(actions.setList(data.results))
+        dispatch(actions.setFilterList(data.results))
       })  
     })
-  },[API])
+  },[API, dispatch])
   const handleChange = (event) => {
+    console.log(categories)
     setCategories(event.target.value);
-  }
-  const CharactersList = () => {
-    const results =  fetchResponse.map(item =>(item.name))
-    return results
+    dispatch(actions.setCategories(event.target.value))
+    
   }
   return (
     <div className='navbar-container'>
       <div>
         <img className='navbar-container__logo' src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Rick_and_Morty.svg/2560px-Rick_and_Morty.svg.png'  alt='rickandmortylogo' />
       </div>
-      <div className='navbar-container-form'>
-          <div>
+      <div className='navbar-container__form'>
+          <div className='navbar-container__form--categories'>
           <Box sx={{ minWidth: 250 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Categories</InputLabel>
@@ -49,39 +51,30 @@ const NavBar = () => {
               onChange={handleChange}>
               <MenuItem value={'character'}>Characters</MenuItem>
               <MenuItem value={'episode'}>Episode</MenuItem>
-              <MenuItem value={'location '}>Locations</MenuItem>
-              <MenuItem value={'comparative'}>Comparative</MenuItem>
+              <MenuItem value={'location'}>Locations</MenuItem>
               </Select>
               </FormControl>
             </Box>
           </div>
-          <div>
+          <div className='navbar-container__form--autocomplete'>
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={fetchResponse ? CharactersList() : [] }
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Movie" />}
+                options={fetchResponse ? fetchResponse : []}
+                sx={{ width: 600 }}
+                getOptionLabel = {(option) => option.name ? option.name :''}
+                onSelect={(option) => {
+                  dispatch(actions.filterList(option.target.value))
+                  console.log("{onSelect}",option.target.value)
+                }}
+                renderInput={(params) => <TextField {...params} label="Select" 
+                onChange = {(event) => {
+                  console.log("[navbar]", event.target.value)
+                  dispatch(actions.filterList(event.target.value))
+                }}/>}
               />
           </div>
-         <div>
-            <Stack direction="row" spacing={3}>
-              <Button variant="contained">Search</Button>
-            </Stack>
-          </div>
       </div>
-      <div className='navbar-container__menu'>
-        <div>
-          <p>Characters</p>
-        </div>
-        <div>
-          <p>Episode</p>
-        </div>
-        <div>
-          <p>Locations</p>
-        </div>
-      </div>
-      
     </div>
   );
 };
