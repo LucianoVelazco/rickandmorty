@@ -29,7 +29,7 @@ const reducer = (state,action) => {
 
             }
             case 'ADD_COMPARELIST' :
-          return{
+            return{
             ...state, 
             comparelist:[...state.comparelist, action.payload]
           }
@@ -37,7 +37,7 @@ const reducer = (state,action) => {
             const filterlist = [...state.comparelist].filter(item => (item.name !== action.payload))
             return{
               ...state, 
-              comparelist:filterlist
+              comparelist:filterlist  
             }
     default: 
       return state

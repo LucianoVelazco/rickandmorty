@@ -15,11 +15,8 @@ function Home() {
   const filterlist = useSelector((state) => state.filterlist);
   const comparelist = useSelector((state) => state.comparelist);
   const dispatch = useDispatch() 
-  const handledelete = (
-    name
-  ) => {
+  const handledelete = (name) => {
     dispatch(actions.removecomparelist(name))
-
   }
   const findwinner = () => {
     let winner = 0

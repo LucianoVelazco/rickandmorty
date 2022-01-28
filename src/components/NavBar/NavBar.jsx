@@ -6,12 +6,12 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions';
 import '../NavBar/NavBar.css'
 
 const NavBar = () => {
-  const [categories, setCategories] = useState('character');
+  const [ categories, setCategories ] = useState('character');
   const [ fetchResponse, setFetchResponse ] =  useState([]);
   const dispatch = useDispatch() 
   const API = `https://rickandmortyapi.com/api/${categories}`
